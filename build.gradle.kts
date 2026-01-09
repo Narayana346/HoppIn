@@ -26,13 +26,22 @@ repositories {
 }
 
 dependencies {
+	// Core Dependencies
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-starter-webmvc")
 //	implementation("org.springframework.boot:spring-boot-starter-websocket")
-	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("org.postgresql:postgresql")
+
+	// Lombok Dependencies
+	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
+
+	//modelmapper
+	implementation("org.modelmapper:modelmapper:3.2.2")
+
+
+	// Test Dependencies
 	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
