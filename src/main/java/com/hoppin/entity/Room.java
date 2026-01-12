@@ -9,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Entity
 @Getter
@@ -29,11 +30,15 @@ public class Room {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal basePrice;
 
-    @Column(columnDefinition = "TEXT[]")
-    private String[] photos;
+    @ElementCollection
+    @CollectionTable(name = "room_photos", joinColumns = @JoinColumn(name = "room_id"))
+    @Column(name = "photo_url", columnDefinition = "TEXT")
+    private ArrayList<String> photos;
 
-    @Column(columnDefinition = "TEXT[]")
-    private String[] amenities;
+    @ElementCollection
+    @CollectionTable(name = "room_amenities", joinColumns = @JoinColumn(name = "room_id"))
+    @Column(name = "amenity", columnDefinition = "TEXT")
+    private ArrayList<String> amenities;
 
     @Column(nullable = false)
     private Integer totalCount;
