@@ -23,6 +23,10 @@ spring:
         format_sql: true
 
 
+jwt:
+  secretKey: a8sd6faihdfjkas2398789afhdskjasdfh87yhk3jha987sdf89aabsdf876
+
+
 server:
   port: 8080
   servlet:
