@@ -1,5 +1,6 @@
 package com.hoppin.service;
 import com.hoppin.dto.HotelDto;
+import com.hoppin.dto.HotelInfoDto;
 
 public interface HotelService {
     HotelDto createNewHotel(HotelDto hotelDto);
@@ -12,4 +13,5 @@ public interface HotelService {
 
     void activateHotel(Long hotelId);
 
+    HotelInfoDto getHotelInfoById(Long hotelId);
 }

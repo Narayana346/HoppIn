@@ -1,5 +1,6 @@
 package com.hoppin.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -47,7 +48,11 @@ public class Hotel {
     @Column(nullable = false)
     private Boolean active;
 
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private User owner;
+
     @OneToMany(mappedBy = "hotel")
+    @JsonIgnore
     private List<Room> rooms;
 
 }

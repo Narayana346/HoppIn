@@ -1,7 +1,0 @@
-package com.hoppin.repository;
-
-import com.hoppin.entity.Payment;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface PaymentRepository extends JpaRepository<Payment, Long> {
-}

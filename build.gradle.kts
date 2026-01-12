@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.testImplementation
+
 plugins {
 	java
 	id("org.springframework.boot") version "4.0.0"
@@ -30,7 +32,6 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-starter-webmvc")
-//	implementation("org.springframework.boot:spring-boot-starter-websocket")
 	runtimeOnly("org.postgresql:postgresql")
 
 	// Lombok Dependencies
@@ -40,12 +41,21 @@ dependencies {
 	//modelmapper
 	implementation("org.modelmapper:modelmapper:3.2.2")
 
+	// Spring Security
+	implementation ("org.springframework.boot:spring-boot-starter-security")
 
+	// JWT (JJWT)
+	implementation ("io.jsonwebtoken:jjwt-api:0.12.6")
+	runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.12.6")
+	runtimeOnly ("io.jsonwebtoken:jjwt-jackson:0.12.6")
+
+
+	// Spring Boot Test
+	testImplementation ("org.springframework.boot:spring-boot-starter-test")
 	// Test Dependencies
 	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
-//	testImplementation("org.springframework.boot:spring-boot-starter-websocket-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
