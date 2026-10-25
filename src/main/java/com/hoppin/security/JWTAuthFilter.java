@@ -1,3 +1,4 @@
+
 package com.hoppin.security;
 
 import com.hoppin.entity.User;
@@ -35,12 +36,17 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 
         try {
             final String requestTokenHeader = request.getHeader("Authorization");
-            if (requestTokenHeader == null || !requestTokenHeader.startsWith("Bearer")) {
+            if (requestTokenHeader == null || !requestTokenHeader.startsWith("Bearer ")) {
                 filterChain.doFilter(request, response);
                 return;
             }
 
-            String token = requestTokenHeader.split("Bearer ")[1];
+            String token = requestTokenHeader.substring("Bearer ".length()).trim();
+            if (token.isEmpty()) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+
             Long userId = jwtService.getUserIdFromToken(token);
 
             if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {

@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/admin/hotels")
 @RequiredArgsConstructor
@@ -45,5 +47,11 @@ public class HotelController {
     public ResponseEntity<Void> activateHotel(@PathVariable Long hotelId) {
         hotelService.activateHotel(hotelId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/owner/{ownerId}")
+    public ResponseEntity<List<HotelDto>> getHotelsByOwnerId(@PathVariable Long ownerId) {
+        List<HotelDto> hotels = hotelService.getHotelsByOwnerId(ownerId);
+        return ResponseEntity.ok(hotels);
     }
 }

@@ -7,6 +7,7 @@ import com.hoppin.dto.RoomDto;
 import com.hoppin.entity.Hotel;
 import com.hoppin.entity.Room;
 import com.hoppin.entity.User;
+import com.hoppin.exception.ResourceAlreadyExistsException;
 import com.hoppin.exception.ResourceNotFoundException;
 import com.hoppin.exception.UnAuthorisedException;
 import com.hoppin.repository.HotelRepository;
@@ -33,10 +34,16 @@ public class HotelServiceImpl implements HotelService{
     @Override
     public HotelDto createNewHotel(HotelDto hotelDto) {
         log.info("Creating a new hotel with name: {}", hotelDto.getName());
-        Hotel hotel = modelMapper.map(hotelDto, Hotel.class);
-        hotel.setActive(false);
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (hotelRepository.existsByNameAndCityAndOwnerId(hotelDto.getName(), hotelDto.getCity(), user.getId())) {
+            throw new ResourceAlreadyExistsException(
+                    "Hotel already exists with name: " + hotelDto.getName() + " in city: " + hotelDto.getCity());
+        }
+
+        Hotel hotel = modelMapper.map(hotelDto, Hotel.class);
+        hotel.setActive(false);
         hotel.setOwner(user);
 
         hotel = hotelRepository.save(hotel);
@@ -134,5 +141,13 @@ public class HotelServiceImpl implements HotelService{
         return new HotelInfoDto(modelMapper.map(hotel, HotelDto.class), rooms);
     }
 
+    @Override
+    public List<HotelDto> getHotelsByOwnerId(Long ownerId) {
+        log.info("Getting all hotels for owner with ID: {}", ownerId);
+        List<Hotel> hotels = hotelRepository.findByOwnerId(ownerId);
+        return hotels.stream()
+                .map((hotel) -> modelMapper.map(hotel, HotelDto.class))
+                .toList();
+    }
 
 }

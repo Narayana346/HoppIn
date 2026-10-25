@@ -31,6 +31,11 @@ public class AuthController {
         return new ResponseEntity<>(authService.signUp(signUpRequestDto), HttpStatus.CREATED);
     }
 
+    @PostMapping("/manager/signup")
+    public ResponseEntity<UserDto> hotelMangerSignup(@RequestBody SignUpRequestDto signUpRequestDto){
+        return new ResponseEntity<>(authService.hotelMangerSignUp(signUpRequestDto),HttpStatus.CREATED);
+    }
+
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> login(@RequestBody LoginDto loginDto, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         String[] tokens = authService.login(loginDto);

@@ -2,9 +2,9 @@ spring:
   application:
     name: hoppin
   datasource:
-    url: jdbc:postgresql://100.124.129.13:5432/hoppin
+    url: jdbc:postgresql://100.91.20.55:5432/hoppin
     username: appuser
-    password: strongpassword
+    password: 4xzAhc9mETw4i1KHQ1cfZMBbbKtercXv
     driver-class-name: org.postgresql.Driver
 
   hikari:

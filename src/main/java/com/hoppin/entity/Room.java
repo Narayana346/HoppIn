@@ -1,6 +1,5 @@
 package com.hoppin.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -33,12 +32,12 @@ public class Room {
     @ElementCollection
     @CollectionTable(name = "room_photos", joinColumns = @JoinColumn(name = "room_id"))
     @Column(name = "photo_url", columnDefinition = "TEXT")
-    private ArrayList<String> photos;
+    private List<String> photos;
 
     @ElementCollection
     @CollectionTable(name = "room_amenities", joinColumns = @JoinColumn(name = "room_id"))
     @Column(name = "amenity", columnDefinition = "TEXT")
-    private ArrayList<String> amenities;
+    private List<String> amenities;
 
     @Column(nullable = false)
     private Integer totalCount;

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.concurrent.Executor;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +30,7 @@ public class InventoryServiceImpl implements InventoryService {
 
     private final InventoryRepository inventoryRepository;
     private final HotelMinPriceRepository hotelMinPriceRepository;
+    private final Executor taskExecutor;
 
     @Override
     public void initializeRoomForAYear(Room room) {
@@ -47,7 +49,12 @@ public class InventoryServiceImpl implements InventoryService {
                     .totalCount(room.getTotalCount())
                     .closed(false)
                     .build();
-            inventoryRepository.save(inventory);
+            taskExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    inventoryRepository.save(inventory);
+                }
+            });
         }
     }
 
